@@ -7,7 +7,7 @@ class MDFCalculator {
     // Calcula o custo da peça
     double pieceArea = piece.width * piece.length;
     double fabricationCost = fabricationTime * pricePerMinute;
-    return pieceArea + fabricationCost;
+    return (pieceArea + fabricationCost)/100;
   }
 
   int calculateSheetsNeeded(Piece piece, MDFSheet sheet) {
