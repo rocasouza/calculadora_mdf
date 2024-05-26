@@ -10,6 +10,7 @@ class MDFSheetView extends StatefulWidget {
 
 class _MDFSheetViewState extends State<MDFSheetView> {
   TextEditingController priceController = TextEditingController();
+  TextEditingController timeController  = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +38,23 @@ class _MDFSheetViewState extends State<MDFSheetView> {
               ),
             ),
             SizedBox(height: 16.0),
+            TextField(
+              controller: timeController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: 'Tempo de fabricação',
+              ),
+            ),
+            SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 // Criar objeto Piece com os dados inseridos pelo usuário
-                MDFSheet mdfsheet = MDFSheet(
-                  pricePerSheet: 326.00,
+                var mdfSheet = MDFSheet(
+                  pricePerSheet: double.parse(priceController.text),
                 );
-                // Calcular custo da peça e número de chapas de MDF necessárias
-                double pricePerSheet = double.parse(priceController.text);
-                double pieceArea = piece.width * piece.length;
-
+                MDFSheet mdfsheet = mdfSheet;
                 MDFCalculator calculator = MDFCalculator();
-                double pieceCost = calculator.calculatePieceCost(piece,pieceArea, pricePerSheet);
+                double pieceCost = calculator.calculatePieceCost(piece,double.parse(timeController.text), 0.93);
                 int sheetsNeeded = calculator.calculateSheetsNeeded(piece, mdfsheet);
 
                 // Mostrar resultados em um diálogo
